@@ -6,10 +6,10 @@
 
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import chatRoutes from './routes/chatRoutes';
-import orderChatRoutes from './routes/orderChatRoutes';
-import * as sessionService from './services/sessionService';
-import * as geminiService from './services/geminiService';
+import chatRoutes from '../lib/routes/chatRoutes';
+import orderChatRoutes from '../lib/routes/orderChatRoutes';
+import * as sessionService from '../lib/services/sessionService';
+import * as geminiService from '../lib/services/geminiService';
 
 // Initialize Express application
 const app: Application = express();
