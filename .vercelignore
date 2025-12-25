@@ -1,6 +1,0 @@
-# Prevent Vercel from creating separate functions for these files
-# Only api/index.ts should be a serverless function
-api/routes/**
-api/services/**
-api/config/**
-api/types/**
