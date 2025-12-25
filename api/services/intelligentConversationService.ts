@@ -582,7 +582,7 @@ export async function shouldProvideOptions(
  * 
  * Returns relevant options based on question and category.
  */
-function getContextualOptions(question: string, category?: IssueCategory): string[] {
+function getContextualOptions(question: string, _category?: IssueCategory): string[] {
   const questionLower = question.toLowerCase();
   
   // Delivery problem types

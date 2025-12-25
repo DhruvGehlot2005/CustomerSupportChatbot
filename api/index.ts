@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Request logging
-app.use((req, res, next) => {
+app.use((req, _res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
   next();
 });
@@ -44,7 +44,7 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/order-chat', orderChatRoutes);
 
 // Health check
-app.get('/api/health', (req: Request, res: Response) => {
+app.get('/api/health', (_req: Request, res: Response) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -53,7 +53,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 });
 
 // Root endpoint
-app.get('/api', (req: Request, res: Response) => {
+app.get('/api', (_req: Request, res: Response) => {
   res.json({
     name: 'AI Customer Support API',
     version: '1.0.0',
@@ -62,7 +62,7 @@ app.get('/api', (req: Request, res: Response) => {
 });
 
 // Error handling
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error('[API] Error:', err);
   res.status(500).json({
     error: 'Internal server error',

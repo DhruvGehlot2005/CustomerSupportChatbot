@@ -3,7 +3,8 @@
   "outputDirectory": "frontend/dist",
   "functions": {
     "api/index.ts": {
-      "runtime": "@vercel/node@3.0.13"
+      "runtime": "@vercel/node@3.0.13",
+      "includeFiles": "api/**"
     }
   },
   "rewrites": [

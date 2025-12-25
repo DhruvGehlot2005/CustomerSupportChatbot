@@ -15,8 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   generateInitialGreeting,
   getChatStep,
-  ChatStep,
-  ChatOption
+  ChatStep
 } from '../config/orderChatFlow';
 
 const router = Router();
@@ -53,7 +52,7 @@ const orderChatSessions = new Map<string, OrderChatSession>();
  * - deliveryStatus: 'delivered' | 'in_transit' | 'processing'
  * - deliveryDate?: string
  */
-router.post('/start', (req: Request, res: Response) => {
+router.post('/start', (req: Request, res: Response): void => {
   try {
     const {
       orderId,
@@ -127,7 +126,7 @@ router.post('/start', (req: Request, res: Response) => {
  * - sessionId: string
  * - optionId: string
  */
-router.post('/select-option', (req: Request, res: Response) => {
+router.post('/select-option', (req: Request, res: Response): void => {
   try {
     const { sessionId, optionId } = req.body;
 
@@ -266,7 +265,7 @@ router.post('/select-option', (req: Request, res: Response) => {
  * 
  * Get session details
  */
-router.get('/session/:sessionId', (req: Request, res: Response) => {
+router.get('/session/:sessionId', (req: Request, res: Response): void => {
   try {
     const { sessionId } = req.params;
 

@@ -21,12 +21,12 @@ import {
   StartConversationResponse,
   SendMessageRequest,
   SendMessageResponse,
-  Resolution
+  Resolution,
+  QuestionType,
+  ResolutionType
 } from '../types';
 import * as sessionService from '../services/sessionService';
 import * as classificationService from '../services/classificationService';
-import * as conversationService from '../services/conversationService';
-import * as resolutionService from '../services/resolutionService';
 import * as responseService from '../services/responseService';
 import { ERROR_MESSAGES } from '../config/constants';
 
@@ -47,7 +47,7 @@ const router = Router();
  * - question?: Question (first question if applicable)
  * - options?: string[] (quick reply options)
  */
-router.post('/start', async (req: Request, res: Response) => {
+router.post('/start', async (req: Request, res: Response): Promise<void> => {
   try {
     const { mode, initialMessage }: StartConversationRequest = req.body;
     
@@ -84,7 +84,7 @@ router.post('/start', async (req: Request, res: Response) => {
       response.question = {
         id: 'category_selection',
         text: categoryOptions,
-        type: 'SINGLE_CHOICE',
+        type: QuestionType.SINGLE_CHOICE,
         options: [
           'Orders & Delivery',
           'Payments & Refunds',
@@ -129,7 +129,7 @@ router.post('/start', async (req: Request, res: Response) => {
         response.question = {
           id: 'initial_question',
           text: intelligentResponse,
-          type: 'SINGLE_CHOICE',
+          type: QuestionType.SINGLE_CHOICE,
           options: optionsCheck.options
         };
       }
@@ -163,7 +163,7 @@ router.post('/start', async (req: Request, res: Response) => {
  * - requiresEscalation?: boolean
  * - options?: string[] (quick reply options)
  */
-router.post('/message', async (req: Request, res: Response) => {
+router.post('/message', async (req: Request, res: Response): Promise<void> => {
   try {
     const { sessionId, message }: SendMessageRequest = req.body;
     
@@ -238,7 +238,7 @@ router.post('/message', async (req: Request, res: Response) => {
         response.question = {
           id: 'dynamic_question_1',
           text: intelligentResponse,
-          type: 'SINGLE_CHOICE',
+          type: QuestionType.SINGLE_CHOICE,
           options: optionsCheck.options
         };
       }
@@ -247,7 +247,7 @@ router.post('/message', async (req: Request, res: Response) => {
     }
     
     // Use intelligent conversation service to determine next action
-    const { determineNextAction, generateFollowUpQuestion, generateSolution, handleOutOfScope } = 
+    const { determineNextAction, generateSolution, handleOutOfScope } = 
       await import('../services/intelligentConversationService');
     
     const updatedSession = sessionService.getSession(sessionId);
@@ -283,7 +283,7 @@ router.post('/message', async (req: Request, res: Response) => {
           response.question = {
             id: `dynamic_question_${Date.now()}`,
             text: nextAction.response,
-            type: 'SINGLE_CHOICE',
+            type: QuestionType.SINGLE_CHOICE,
             options: optionsCheck.options
           };
         }
@@ -301,7 +301,7 @@ router.post('/message', async (req: Request, res: Response) => {
         
         // Mark as resolved
         const resolution: Resolution = {
-          type: 'INFORMATION_PROVIDED',
+          type: ResolutionType.INFORMATION_PROVIDED,
           message: solution
         };
         
@@ -319,7 +319,7 @@ router.post('/message', async (req: Request, res: Response) => {
         sessionService.addMessage(sessionId, 'assistant', escalationMessage);
         
         const escalationResolution: Resolution = {
-          type: 'ESCALATE_AGENT',
+          type: ResolutionType.ESCALATE_AGENT,
           message: escalationMessage,
           escalationDetails: {
             team: 'Customer Support Team',
@@ -363,7 +363,7 @@ router.post('/message', async (req: Request, res: Response) => {
  * Response:
  * - session: ConversationSession
  */
-router.get('/session/:sessionId', (req: Request, res: Response) => {
+router.get('/session/:sessionId', (req: Request, res: Response): void => {
   try {
     const { sessionId } = req.params;
     
@@ -390,7 +390,7 @@ router.get('/session/:sessionId', (req: Request, res: Response) => {
  * 
  * Health check for chat service.
  */
-router.get('/health', (req: Request, res: Response) => {
+router.get('/health', (_req: Request, res: Response) => {
   const sessionCount = sessionService.getSessionCount();
   
   res.json({

@@ -125,7 +125,7 @@ function createSelfServiceResolution(steps: string[]): Resolution {
  */
 function createAutomatedActionResolution(
   steps: string[],
-  estimatedTime: string
+  _estimatedTime: string
 ): Resolution {
   return {
     type: ResolutionType.AUTOMATED_ACTION,
@@ -146,7 +146,7 @@ function createAutomatedActionResolution(
  */
 function createInformationResolution(
   info: string[],
-  answers: Record<string, string>
+  _answers: Record<string, string>
 ): Resolution {
   // Could enhance this to look up actual order data, etc.
   // For now, just provide the predefined information
@@ -169,7 +169,7 @@ function createInformationResolution(
  * @returns Escalation resolution
  */
 function createEscalationResolution(
-  reason: string,
+  _reason: string,
   priority: 'low' | 'medium' | 'high' | 'urgent',
   estimatedTime: string
 ): Resolution {
