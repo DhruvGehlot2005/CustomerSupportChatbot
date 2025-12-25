@@ -52,7 +52,7 @@ const orderChatSessions = new Map<string, OrderChatSession>();
  * - deliveryStatus: 'delivered' | 'in_transit' | 'processing'
  * - deliveryDate?: string
  */
-router.post('/start', (req: Request, res: Response): void => {
+router.post('/start', (req: Request, res: Response) => {
   try {
     const {
       orderId,
@@ -126,7 +126,7 @@ router.post('/start', (req: Request, res: Response): void => {
  * - sessionId: string
  * - optionId: string
  */
-router.post('/select-option', (req: Request, res: Response): void => {
+router.post('/select-option', (req: Request, res: Response) => {
   try {
     const { sessionId, optionId } = req.body;
 
@@ -265,7 +265,7 @@ router.post('/select-option', (req: Request, res: Response): void => {
  * 
  * Get session details
  */
-router.get('/session/:sessionId', (req: Request, res: Response): void => {
+router.get('/session/:sessionId', (req: Request, res: Response) => {
   try {
     const { sessionId } = req.params;
 

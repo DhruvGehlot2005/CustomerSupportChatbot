@@ -47,7 +47,7 @@ const router = Router();
  * - question?: Question (first question if applicable)
  * - options?: string[] (quick reply options)
  */
-router.post('/start', async (req: Request, res: Response): Promise<void> => {
+router.post('/start', async (req: Request, res: Response) => {
   try {
     const { mode, initialMessage }: StartConversationRequest = req.body;
     
@@ -163,7 +163,7 @@ router.post('/start', async (req: Request, res: Response): Promise<void> => {
  * - requiresEscalation?: boolean
  * - options?: string[] (quick reply options)
  */
-router.post('/message', async (req: Request, res: Response): Promise<void> => {
+router.post('/message', async (req: Request, res: Response) => {
   try {
     const { sessionId, message }: SendMessageRequest = req.body;
     
@@ -363,7 +363,7 @@ router.post('/message', async (req: Request, res: Response): Promise<void> => {
  * Response:
  * - session: ConversationSession
  */
-router.get('/session/:sessionId', (req: Request, res: Response): void => {
+router.get('/session/:sessionId', (req: Request, res: Response) => {
   try {
     const { sessionId } = req.params;
     
