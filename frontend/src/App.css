@@ -1,0 +1,45 @@
+/**
+ * Root Application Styles
+ * 
+ * Purpose: Global styles for the main application layout
+ * 
+ * Structure:
+ * - App container: Full viewport height with flexbox layout
+ * - Main: Content area with flexible growth
+ * - Footer: Bottom information area
+ * 
+ * Accessibility:
+ * - High contrast colors for readability
+ * - Semantic HTML structure
+ * - Responsive design for all screen sizes
+ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+}
+
+.app-footer {
+  background-color: #34495e;
+  color: white;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.app-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+  .app-footer {
+    padding: 1rem;
+  }
+}

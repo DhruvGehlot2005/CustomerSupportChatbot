@@ -1,0 +1,26 @@
+{
+  "name": "ai-customer-support",
+  "version": "1.0.0",
+  "description": "AI-powered customer support system for e-commerce",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "api"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm install --workspace=frontend && npm install --workspace=api",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build": "npm run build --workspace=frontend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend"
+  },
+  "keywords": [
+    "ai",
+    "customer-support",
+    "chatbot",
+    "e-commerce"
+  ],
+  "author": "",
+  "license": "MIT"
+}
